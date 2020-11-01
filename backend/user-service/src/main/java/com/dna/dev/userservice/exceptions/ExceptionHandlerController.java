@@ -13,16 +13,22 @@ public class ExceptionHandlerController {
 
     @ExceptionHandler(UsernameTakenException.class)
     public ResponseEntity<ErrorMessage> exception(UsernameTakenException usernameTakenException){
-        return new ResponseEntity<>(new ErrorMessage(usernameTakenException.getMessage(), LocalDateTime.now()), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new ErrorMessage(usernameTakenException.getMessage(), LocalDateTime.now()), HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(EmailTakenException.class)
     public ResponseEntity<ErrorMessage> exception(EmailTakenException emailTakenException){
-        return new ResponseEntity<>(new ErrorMessage(emailTakenException.getMessage(), LocalDateTime.now()), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new ErrorMessage(emailTakenException.getMessage(), LocalDateTime.now()), HttpStatus.CONFLICT);
     }
 
-    @ExceptionHandler(EmptyFieldException.class)
-    public ResponseEntity<ErrorMessage> exception(EmptyFieldException emptyFieldException){
-        return new ResponseEntity<>(new ErrorMessage(emptyFieldException.getMessage(), LocalDateTime.now()), HttpStatus.BAD_REQUEST);
+    @ExceptionHandler(ScaryStoryException.class)
+    public ResponseEntity<ErrorMessage> exception(ScaryStoryException scaryStoryException){
+        return new ResponseEntity<>(new ErrorMessage(scaryStoryException.getMessage(), LocalDateTime.now()), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ErrorMessage> exception(UserNotFoundException userNotFoundException){
+        return new ResponseEntity<>(new ErrorMessage(userNotFoundException.getMessage(), LocalDateTime.now()), HttpStatus.BAD_REQUEST);
+    }
+
 }

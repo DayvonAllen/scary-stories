@@ -1,16 +1,32 @@
 package com.dna.dev.userservice.api.v1.domain;
 
 import com.dna.dev.userservice.model.Role;
+import com.fasterxml.jackson.annotation.JsonFilter;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.UUID;
 
+
+@JsonFilter("BeanFilter")
 public class UserDto {
 
     private UUID id;
+
+    @NotNull(message = "Username cannot be empty.")
+    @Size(min = 2, message = "Username must be at least 2 character")
     private String username;
+
+    @NotNull(message = "Email cannot be empty.")
+    @Email(message = "Must be a valid email.")
     private String email;
+
+    @NotNull(message = "Password cannot be null.")
+    @Size(min = 6, message = "Password cannot be less than 6 characters")
     private String password;
+
     private LocalDate lastLoginDate;
     private LocalDate joinDate;
     private Role role;
@@ -29,7 +45,8 @@ public class UserDto {
         this.password = password;
     }
 
-    public UserDto(UUID id, String username, String email, String password, LocalDate lastLoginDate, LocalDate joinDate, Role role, Boolean isActive, Boolean isUnlocked) {
+    public UserDto(UUID id, String username, String email, String password, LocalDate lastLoginDate, LocalDate joinDate,
+                   Role role, Boolean isActive, Boolean isUnlocked) {
         this.id = id;
         this.username = username;
         this.email = email;
